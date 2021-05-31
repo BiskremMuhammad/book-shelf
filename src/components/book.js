@@ -7,9 +7,6 @@ export const Book = (props) => {
   const onChangeShelf = (target) => {
     let val = target.value;
     setShelf(val);
-    if (val.toLowerCase() === "none") {
-      val = "";
-    }
     val = val
       .split(" ")
       .map((w) => w.charAt(0).toUpperCase() + w.substr(1))
