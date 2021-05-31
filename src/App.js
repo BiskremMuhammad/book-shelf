@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router";
+import { Route, Switch } from "react-router";
 import "./App.css";
 import { getAll, update } from "./BooksAPI";
 import { Search } from "./components/search";
@@ -37,27 +37,29 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route
-          path="/search"
-          render={() => (
-            <Search
-              shelves={this.state.shelves}
-              changeShelf={this.changeBookShelf}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Home
-              books={this.state.books}
-              shelves={this.state.shelves}
-              changeShelf={this.changeBookShelf}
-            />
-          )}
-        />
-        <Route component={NotFound} />
+        <Switch>
+          <Route
+            path="/search"
+            render={() => (
+              <Search
+                shelves={this.state.shelves}
+                changeShelf={this.changeBookShelf}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Home
+                books={this.state.books}
+                shelves={this.state.shelves}
+                changeShelf={this.changeBookShelf}
+              />
+            )}
+          />
+          <Route component={NotFound} />
+        </Switch>
       </div>
     );
   }
