@@ -1,34 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Book } from "./book";
+import * as BooksAPI from "../BooksAPI";
 
-export const Search = () => {
+export const Search = (props) => {
+  const [term, setTerm] = useState("");
+  const [books, setBooks] = useState([]);
+
+  const onChangeTerm = async (ev) => {
+    const val = ev.target.value;
+    setTerm(val);
+    const books = await BooksAPI.search(val);
+    setBooks(books);
+  };
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <button
-          className="close-search"
-          onClick={() =>
-            this.setState({
-              showSearchPage: false,
-            })
-          }
-        >
+        <Link className="close-search" to="/">
           Close
-        </button>
+        </Link>
         <div className="search-books-input-wrapper">
-          {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-          <input type="text" placeholder="Search by title or author" />
+          <input
+            type="text"
+            placeholder="Search by title or author"
+            value={term}
+            onChange={onChangeTerm}
+          />
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid" />
+        <ol className="books-grid">
+          {books.map((b, i) => (
+            <Book
+              key={i}
+              poster={b.imageLinks.thumbnail}
+              title={b.title}
+              authors={b.authors && b.authors.length ? b.authors : []}
+              shelf={b.shelf ? b.shelf : "None"}
+              options={props.shelves}
+            />
+          ))}
+        </ol>
       </div>
     </div>
   );
+};
+
+Search.propTypes = {
+  shelves: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

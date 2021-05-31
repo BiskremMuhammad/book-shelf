@@ -51,5 +51,3 @@ Book.propTypes = {
   shelf: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-
-export default Book;

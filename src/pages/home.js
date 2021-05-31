@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Book } from "../components/book";
+import { Link } from "react-router-dom";
 
 export const Home = (props) => {
   return (
@@ -38,15 +39,13 @@ export const Home = (props) => {
         </div>
       </div>
       <div className="open-search">
-        <button onClick={() => this.setState({ showSearchPage: true })}>
-          Add a book
-        </button>
+        <Link to="/search">Add a book</Link>
       </div>
     </div>
   );
 };
 
-Home.prototype = {
+Home.propTypes = {
   books: PropTypes.array.isRequired,
   shelves: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
