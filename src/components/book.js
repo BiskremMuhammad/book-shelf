@@ -21,11 +21,14 @@ export const Book = (props) => (
             <option
               key={i}
               value={o}
-              checked={
+              selected={
                 props.shelf.toLowerCase() ===
                 o.replace(/\s/gi, "").toLowerCase()
               }
             >
+              {props.shelf.toLowerCase() === o.replace(/\s/gi, "").toLowerCase()
+                ? "✓\xA0\xA0\xA0"
+                : "\xA0\xA0\xA0\xA0\xA0"}
               {o}
             </option>
           ))}

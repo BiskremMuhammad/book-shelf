@@ -12,7 +12,7 @@ class BooksApp extends React.Component {
 
     this.state = {
       books: [],
-      shelves: ["Currently Reading", "Want to Read", "read", "None"],
+      shelves: ["Currently Reading", "Want to Read", "Read", "None"],
     };
   }
 
