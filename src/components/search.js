@@ -35,11 +35,13 @@ export const Search = (props) => {
           {books.map((b, i) => (
             <Book
               key={i}
+              id={b.id}
               poster={b.imageLinks.thumbnail}
               title={b.title}
               authors={b.authors && b.authors.length ? b.authors : []}
               shelf={b.shelf ? b.shelf : "None"}
               options={props.shelves}
+              changeShelf={props.changeShelf}
             />
           ))}
         </ol>
@@ -50,4 +52,5 @@ export const Search = (props) => {
 
 Search.propTypes = {
   shelves: PropTypes.arrayOf(PropTypes.string).isRequired,
+  changeShelf: PropTypes.func.isRequired,
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router";
 import "./App.css";
-import { getAll } from "./BooksAPI";
+import { getAll, update } from "./BooksAPI";
 import { Search } from "./components/search";
 import { NotFound } from "./pages/404";
 import { Home } from "./pages/home";
@@ -14,6 +14,9 @@ class BooksApp extends React.Component {
       books: [],
       shelves: ["Currently Reading", "Want to Read", "Read", "None"],
     };
+
+    // ........bind
+    this.changeBookShelf = this.changeBookShelf.bind(this);
   }
 
   componentDidMount() {
@@ -25,18 +28,33 @@ class BooksApp extends React.Component {
     fetchBooks();
   }
 
+  async changeBookShelf(book, shelf) {
+    await update(book, shelf);
+    const books = await getAll();
+    this.setState({ books });
+  }
+
   render() {
     return (
       <div className="app">
         <Route
           path="/search"
-          render={() => <Search shelves={this.state.shelves} />}
+          render={() => (
+            <Search
+              shelves={this.state.shelves}
+              changeShelf={this.changeBookShelf}
+            />
+          )}
         />
         <Route
           exact
           path="/"
           render={() => (
-            <Home books={this.state.books} shelves={this.state.shelves} />
+            <Home
+              books={this.state.books}
+              shelves={this.state.shelves}
+              changeShelf={this.changeBookShelf}
+            />
           )}
         />
         <Route component={NotFound} />

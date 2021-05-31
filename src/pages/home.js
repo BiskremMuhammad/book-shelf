@@ -25,11 +25,13 @@ export const Home = (props) => {
                     .map((b, i) => (
                       <Book
                         key={i}
+                        id={b.id}
                         poster={b.imageLinks.thumbnail}
                         title={b.title}
                         authors={b.authors}
                         shelf={b.shelf}
                         options={props.shelves}
+                        changeShelf={props.changeShelf}
                       />
                     ))}
                 </ol>
@@ -48,4 +50,5 @@ export const Home = (props) => {
 Home.propTypes = {
   books: PropTypes.array.isRequired,
   shelves: PropTypes.arrayOf(PropTypes.string).isRequired,
+  changeShelf: PropTypes.func.isRequired,
 };
