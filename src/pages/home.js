@@ -27,7 +27,7 @@ export const Home = (props) => {
                         <Book
                           key={i}
                           id={b.id}
-                          poster={b.imageLinks.thumbnail}
+                          poster={b.imageLinks ? b.imageLinks.thumbnail : ""}
                           title={b.title}
                           authors={b.authors}
                           shelf={b.shelf}

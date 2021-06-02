@@ -36,18 +36,19 @@ export const Search = (props) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {books.map((b, i) => (
-            <Book
-              key={i}
-              id={b.id}
-              poster={b.imageLinks.thumbnail}
-              title={b.title}
-              authors={b.authors && b.authors.length ? b.authors : []}
-              shelf={b.shelf ? b.shelf : "None"}
-              options={props.shelves}
-              changeShelf={props.changeShelf}
-            />
-          ))}
+          {!!books &&
+            books.map((b, i) => (
+              <Book
+                key={i}
+                id={b.id}
+                poster={b.imageLinks ? b.imageLinks.thumbnail : ""}
+                title={b.title}
+                authors={b.authors && b.authors.length ? b.authors : []}
+                shelf={b.shelf ? b.shelf : "None"}
+                options={props.shelves}
+                changeShelf={props.changeShelf}
+              />
+            ))}
         </ol>
       </div>
     </div>
