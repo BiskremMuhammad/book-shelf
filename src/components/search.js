@@ -11,6 +11,10 @@ export const Search = (props) => {
   const onChangeTerm = async (ev) => {
     const val = ev.target.value;
     setTerm(val);
+    if (!val || !val.length) {
+      setBooks([]);
+      return;
+    }
     const books = await BooksAPI.search(val);
     setBooks(books);
   };
