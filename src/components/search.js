@@ -11,7 +11,7 @@ export const Search = (props) => {
 
   useEffect(() => {
     input.current.focus();
-  });
+  }, []);
 
   const search = async (term) => {
     const books = await BooksAPI.search(term);
