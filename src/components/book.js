@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 export const Book = (props) => {
   const [shelf, setShelf] = useState(props.shelf);
+
+  useEffect(() => {
+    setShelf(props.shelf);
+  }, [props.shelf]);
 
   const onChangeShelf = (target) => {
     let val = target.value;

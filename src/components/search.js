@@ -48,25 +48,25 @@ export const Search = (props) => {
       <div className="search-books-results">
         <ol className="books-grid">
           {!!renderedBooks &&
-            renderedBooks.map((b, i) => (
-              <Book
-                key={i}
-                id={b.id}
-                poster={b.imageLinks ? b.imageLinks.thumbnail : ""}
-                title={b.title}
-                authors={b.authors && b.authors.length ? b.authors : []}
-                shelf={
-                  b.shelf
-                    ? b.shelf
-                    : props.userBooks &&
-                      props.userBooks.find((book) => book.id === b.id)
-                    ? props.userBooks.find((book) => book.id === b.id).shelf
-                    : "None"
-                }
-                options={props.shelves}
-                changeShelf={props.changeShelf}
-              />
-            ))}
+            renderedBooks.map((b, i) => {
+              const shelf =
+                props.userBooks &&
+                props.userBooks.find((book) => book.id === b.id)
+                  ? props.userBooks.find((book) => book.id === b.id).shelf
+                  : "None";
+              return (
+                <Book
+                  key={i}
+                  id={b.id}
+                  poster={b.imageLinks ? b.imageLinks.thumbnail : ""}
+                  title={b.title}
+                  authors={b.authors && b.authors.length ? b.authors : []}
+                  shelf={shelf}
+                  options={props.shelves}
+                  changeShelf={props.changeShelf}
+                />
+              );
+            })}
         </ol>
       </div>
     </div>
