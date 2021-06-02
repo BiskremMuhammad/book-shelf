@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Book } from "./book";
@@ -7,6 +7,11 @@ import * as BooksAPI from "../BooksAPI";
 export const Search = (props) => {
   const [term, setTerm] = useState("");
   const [books, setBooks] = useState([]);
+  const input = useRef(null);
+
+  useEffect(() => {
+    input.current.focus();
+  });
 
   const search = async (term) => {
     const books = await BooksAPI.search(term);
@@ -33,6 +38,7 @@ export const Search = (props) => {
         <div className="search-books-input-wrapper">
           <input
             type="text"
+            ref={input}
             placeholder="Search by title or author"
             value={term}
             onChange={onChangeTerm}
