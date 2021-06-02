@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 export const Book = (props) => {
@@ -18,6 +18,13 @@ export const Book = (props) => {
     val = val.charAt(0).toLowerCase() + val.substr(1);
     props.changeShelf({ id: props.id }, val);
   };
+
+  const [windowsUsersSelectedOptionPrefix, setWinPrefix] = useState(false);
+  useLayoutEffect(() => {
+    if (!navigator.userAgent.includes("Mac OS X")) {
+      setWinPrefix(true);
+    }
+  }, []);
 
   return (
     <div className="book">
@@ -43,9 +50,11 @@ export const Book = (props) => {
                   shelf.toLowerCase() === o.replace(/\s/gi, "").toLowerCase()
                 }
               >
-                {shelf.toLowerCase() === o.replace(/\s/gi, "").toLowerCase()
-                  ? "✓\xA0\xA0\xA0"
-                  : "\xA0\xA0\xA0\xA0\xA0"}
+                {windowsUsersSelectedOptionPrefix
+                  ? shelf.toLowerCase() === o.replace(/\s/gi, "").toLowerCase()
+                    ? "✓\xA0\xA0\xA0"
+                    : "\xA0\xA0\xA0\xA0\xA0"
+                  : ""}
                 {o}
               </option>
             ))}
