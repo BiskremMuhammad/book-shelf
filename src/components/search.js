@@ -8,16 +8,21 @@ export const Search = (props) => {
   const [term, setTerm] = useState("");
   const [books, setBooks] = useState([]);
 
-  const onChangeTerm = async (ev) => {
+  const search = async (term) => {
+    const books = await BooksAPI.search(term);
+    setBooks(!!books && books.length && term !== "" ? books : []);
+  };
+  const onChangeTerm = (ev) => {
     const val = ev.target.value;
     setTerm(val);
     if (!val || !val.length) {
       setBooks([]);
       return;
     }
-    const books = await BooksAPI.search(val);
-    setBooks(books);
+    search(val);
   };
+
+  const renderedBooks = !!books && books.length && term !== "" ? books : [];
 
   return (
     <div className="search-books">
@@ -36,8 +41,8 @@ export const Search = (props) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {!!books &&
-            books.map((b, i) => (
+          {!!renderedBooks &&
+            renderedBooks.map((b, i) => (
               <Book
                 key={i}
                 id={b.id}
