@@ -49,7 +49,14 @@ export const Search = (props) => {
                 poster={b.imageLinks ? b.imageLinks.thumbnail : ""}
                 title={b.title}
                 authors={b.authors && b.authors.length ? b.authors : []}
-                shelf={b.shelf ? b.shelf : "None"}
+                shelf={
+                  b.shelf
+                    ? b.shelf
+                    : props.userBooks &&
+                      props.userBooks.find((book) => book.id === b.id)
+                    ? props.userBooks.find((book) => book.id === b.id).shelf
+                    : "None"
+                }
                 options={props.shelves}
                 changeShelf={props.changeShelf}
               />
@@ -61,6 +68,7 @@ export const Search = (props) => {
 };
 
 Search.propTypes = {
+  userBooks: PropTypes.array.isRequired,
   shelves: PropTypes.arrayOf(PropTypes.string).isRequired,
   changeShelf: PropTypes.func.isRequired,
 };

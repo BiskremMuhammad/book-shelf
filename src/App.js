@@ -43,6 +43,7 @@ class BooksApp extends React.Component {
             render={() => (
               <Search
                 shelves={this.state.shelves}
+                userBooks={this.state.books}
                 changeShelf={this.changeBookShelf}
               />
             )}
